@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 public class Barrel extends GameObject{
 
     //
@@ -86,7 +87,7 @@ public class Barrel extends GameObject{
         field.getCells(x, y).addObject(this);
     }
 
-    public void setX(int x) {
+    /*public void setX(int x) {
         if (x > 0 && x < field.getCols() - 1 && field.getCells(x, y).getObject() != null)
             this.x = x;
         else {
@@ -100,6 +101,16 @@ public class Barrel extends GameObject{
         else {
             throw new RuntimeException("Клетка занята или ее не существует");
         }
+    }*/
+
+    public void setPosition(int x, int y){
+        if ((x > 0 && x < field.getCols() - 1 && field.getCells(x, y).getObject() != null) &&
+                (y > 0 && y < field.getRows() - 1 && field.getCells(x, y).getObject() != null)) {
+            this.x = x;
+            this.y = y;
+        } else {
+            throw new RuntimeException("Клетка занята или ее не существует");
+        }
     }
 
     public int getY() {
@@ -110,7 +121,7 @@ public class Barrel extends GameObject{
     }
 
 
-    public Image getBarrel() {
+    public Image getImgBarrel() {
         return barrel;
     }
 
@@ -125,10 +136,7 @@ public class Barrel extends GameObject{
 
         Cell newCell = field.getCells(newX, newY);
 
-        if(newCell.getObject() instanceof Fence ||
-           newCell.getObject() instanceof Barrel ||
-           newCell.getObject() instanceof Cabbage ||
-           newCell.getObject() instanceof Grass){
+        if (newCell.hasObject()) {
             return newCell.getObject();
         }
 
@@ -156,12 +164,8 @@ public class Barrel extends GameObject{
         // перемещаем объект на новую клетку
         currentCell.removeObject();
         field.getCells(newX, newY).addObject(this);
+        x = newX;
+        y = newY;
     }
 
-    public Goat checkPositionGoat(int dx, int dy) {
-        // проверяем, есть ли рядом коза
-        // если да, возвращаем ссылку на объект козы
-        return field.getCells(x + dx, y + dy).getObject() instanceof Goat ?
-                (Goat) field.getCells(x + dx, y + dy).getObject() : null;
-    }
 }

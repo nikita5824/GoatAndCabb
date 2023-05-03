@@ -47,38 +47,50 @@ public class Cell {
 
     //
     ///////////////////////////////////////////////////////////////////////
+
+    /*public void addObject(int x, int y, GameObject object) {
+        if (this.object == null) {
+            this.object = object;
+            object.setPosition(x, y);
+        } else {
+            throw new RuntimeException("В клетке уже имеется объект");
+        }
+    }
+
+    public void interactWithObject(GameObject object) {
+        if (this.object == null) {
+            throw new RuntimeException("В клетке нет объекта");
+        } else if (this.object instanceof Grass || this.object instanceof Cabbage) {
+            goat.eatCabbageAndGrass();
+        }
+    }*/
     public void addObject(int x, int y, GameObject object){
         if(this.object == null) {
             this.object = object;
 
             if(object instanceof Barrel) {
                 barrel = (Barrel) object;
-                barrel.setX(x);
-                barrel.setY(y);
+                barrel.setPosition(x, y);
             }
 
             if(object instanceof Goat) {
                 goat = (Goat) object;
-                goat.setCurrentX(x);
-                goat.setCurrentY(y);
+                goat.setPosition(x, y);
             }
 
             if(object instanceof Cabbage){
                 cabbage = (Cabbage) object;
-                cabbage.setX(x);
-                cabbage.setY(y);
+                cabbage.setPosition(x, y);
             }
 
             if(object instanceof Grass){
                 grass = (Grass) object;
-                grass.setX(x);
-                grass.setY(y);
+                grass.setPosition(x, y);
             }
 
             if(object instanceof Fence){
                 fence = (Fence) object;
-                fence.setX(x);
-                fence.setY(y);
+                fence.setPosition(x, y);
             }
         } else if (this.getObject() instanceof Grass || this.getObject() instanceof Cabbage){
             goat.eatCabbageAndGrass();
@@ -154,10 +166,13 @@ public class Cell {
         return y;
     }
 
-    public Image getGrave() {
+    public Image getImgGrave() {
         return grave;
     }
 
+    public boolean hasObject() {
+        return (object != null);
+    }
     /*
     //То же самое, но в конструктор передается картинка
     public Cell(int x, int y, ImageIcon imageGrave){

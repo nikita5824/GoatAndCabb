@@ -64,7 +64,16 @@ public class Goat extends GameObject{
         return currentY;
     }
 
-    public void setCurrentX(int currentX) {
+    public void setPosition(int x, int y){
+        if ((currentY > 0 && currentY < field.getRows() - 1 && field.getCells(currentX, currentY).getObject() != null)&&
+        (currentY > 0 && currentY < field.getRows() - 1 && field.getCells(currentX, currentY).getObject() != null)){
+            this.currentX = currentX;
+            this.currentY = currentY;
+        }else {
+            throw new RuntimeException("Клетка занята или ее не существует");
+        }
+    }
+    /*public void setCurrentX(int currentX) {
 
         if (currentY > 0 && currentY < field.getRows() - 1 && field.getCells(currentX, currentY).getObject() != null)
             this.currentX = currentX;
@@ -79,7 +88,7 @@ public class Goat extends GameObject{
         else {
             throw new RuntimeException("Клетка занята или ее не существует");
         }
-    }
+    }*/
 
     public boolean isCabbageEaten() {
         return cabbageEaten;
@@ -102,26 +111,28 @@ public class Goat extends GameObject{
 
        // int currentX = getX(); // получаем текущие координаты козы
        // int currentY = getY();
-        if (dx == 0 && dy == 0) { // если не задано направление, то ничего не делаем
-            return;
-        }
-        if (currentX + dx >= 0 && currentX + dx < Field.COLS // проверяем, что коза не выйдет за границы карты
-                && currentY + dy >= 0 && currentY + dy < Field.ROWS) {
+        Cell currentCell = field.getCells(currentX, currentY);
 
-            if(!(field.getCells(currentX + dx, currentY + dy).getObject() instanceof Barrel)) {   //Если не Barrel{
-                if(!(field.getCells(currentX + dx, currentY + dy).getObject() instanceof Fence)){
-                    if(field.getCells(currentX + dx, currentY + dy).getObject() instanceof Grass){
-                        currentX = currentX + dx; // обновляем координаты козы
-                        currentY = currentY + dy;
-                        eatCabbageAndGrass(); // коза ест траву
-                    } else if (field.getCells(currentX + dx, currentY + dy).getObject() instanceof Cabbage){
-                        currentX = currentX + dx; // обновляем координаты козы
-                        currentY = currentY + dy;
-                        eatCabbageAndGrass(); // коза ест капусту
-                    }
-                }
-            }
+        int newX = currentCell.getX() + dx;
+        int newY = currentCell.getY() + dy;
+
+        if (newX < 0 || newX >= field.getRows() || newY < 0 || newY >= field.getCols()) {
+            throw new RuntimeException("Передвижение невозможно - выход за пределы поля");
         }
+
+        // получаем объект, который находится в новой клетке
+        GameObject objectInNewCell = field.getCells(newX, newY).getObject();
+
+        // проверяем, что новая клетка свободна
+        if (objectInNewCell != null) {
+            throw new RuntimeException("Передвижение невозможно - на пути находится объект " + objectInNewCell.getClass().getSimpleName());
+        }
+
+        // перемещаем объект на новую клетку
+        currentCell.removeObject();
+        field.getCells(newX, newY).addObject(this);
+        currentX = newX;
+        currentY = newY;
     }
 
     public void eatCabbageAndGrass(){

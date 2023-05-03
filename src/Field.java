@@ -14,7 +14,7 @@ public class Field extends JPanel {
     public static final int ROWS = 10;
     public static final int COLS = 10;
 
-    // Длина и высота в пикселях (пока что настраивается в сериализации)
+    // Длина и высота в пикселях
     private final int width, height; // cols * CELL_SIZE;
                                      // rows * CELL_SIZE;
 

@@ -73,18 +73,12 @@ public class Cabbage extends GameObject{
         return y;
     }
 
-    public void setX(int x) {
-        if (x < 0 && x > field.getCols() - 1 && field.getCells(x, y).getObject() != null)
+    public void setPosition(int x, int y){
+        if ((x < 0 && x > field.getCols() - 1 && field.getCells(x, y).getObject() != null) &&
+                (y < 0 && y > field.getRows() - 1 && field.getCells(x, y).getObject() != null)) {
             this.x = x;
-        else {
-            throw new RuntimeException("Клетка занята или ее не существует");
-        }
-    }
-
-    public void setY(int y) {
-        if (y < 0 && y > field.getRows() - 1 && field.getCells(x, y).getObject() != null)
             this.y = y;
-        else {
+        } else {
             throw new RuntimeException("Клетка занята или ее не существует");
         }
     }

@@ -22,17 +22,12 @@ class BarrelTest {
 
     //Переделываем на неправильную позицию
     @Test
-    void setBarrelFalseX() {
+    void setBarrelFalsePosition() {
         Barrel barrel = new Barrel(5, 5, new Field());
-        assertThrows(RuntimeException.class, ()->barrel.setX(32));
+        assertThrows(RuntimeException.class, ()->barrel.setPosition(56, 34));
     }
 
-    //Переделываем на неправильную позицию
-    @Test
-    void setBarrelFalseY() {
-        Barrel barrel = new Barrel(5, 5, new Field());
-        assertThrows(RuntimeException.class, ()->barrel.setY(32));
-    }
+
 
     //Получить координату X
     @Test
@@ -56,7 +51,7 @@ class BarrelTest {
 
         Barrel newBarrel = new Barrel(5, 5, new Field());
 
-        assertEquals(barrel, newBarrel.getBarrel());
+        assertEquals(barrel, newBarrel.getImgBarrel());
     }
 
     //Проверить позицию barrel по переданным координатам dx, dy
@@ -113,7 +108,7 @@ class BarrelTest {
 
         barrel.move(0, 1);
 
-        assertEquals(barrel, field.getCells(1, 3).getObject());
+        assertEquals(3, barrel.getY());
 
     }
 

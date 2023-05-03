@@ -142,7 +142,7 @@ public class FieldGenerator  {
         return cells;
     }
 
-    //Дописать класс с сериализацией
+
     public static ArrayList<Cell> generateFieldSerialization(){
         ArrayList<Cell> cells = new ArrayList<>();
 
