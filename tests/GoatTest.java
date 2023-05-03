@@ -15,6 +15,21 @@ class GoatTest {
 
         assertEquals(5, goat.getCurrentY());
     }
+
+    @Test
+    void moveBarrel() {
+        Field field = new Field();
+        Barrel barrel = new Barrel(3, 5, field);
+        Goat goat = new Goat(3, 4, field);
+
+
+        goat.moveBarrel(0, -1, barrel);
+
+        assertEquals(4, barrel.getY());
+        assertEquals(3, goat.getCurrentY());
+    }
+
+
     @Test
     void eatCabbageAndGrass() {
 

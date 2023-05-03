@@ -67,8 +67,8 @@ public class Goat extends GameObject{
     public void setPosition(int x, int y){
         if ((currentY > 0 && currentY < field.getRows() - 1 && field.getCells(currentX, currentY).getObject() != null)&&
         (currentY > 0 && currentY < field.getRows() - 1 && field.getCells(currentX, currentY).getObject() != null)){
-            this.currentX = currentX;
-            this.currentY = currentY;
+            this.currentX = x;
+            this.currentY = y;
         }else {
             throw new RuntimeException("Клетка занята или ее не существует");
         }
@@ -141,19 +141,29 @@ public class Goat extends GameObject{
         cabbageEaten = true;
     }
 
-    public void moveBarrel(int dx, int dy) {
-        // получаем ссылку на бочку
-        Barrel barrel = field.getCells(currentX + dx, currentY + dy).getObject() instanceof Barrel ?
-                (Barrel) field.getCells(currentX + dx, currentY + dy).getObject() : null;
-        if (barrel != null) {
-            // проверяем, есть ли рядом коза
-            Goat goat = (Goat)barrel.checkPosition(dx, dy);
-            if (goat != null) {
-                // передвигаем бочку в соответствующем направлении
-                barrel.move(dx, dy);
-            }
+    public void moveBarrel(int dx, int dy, Barrel barrel) {
+        // проверяем, можно ли перемещать бочку в заданном направлении
+        Cell currentCell = field.getCells(getCurrentX(), getCurrentY());
+        Cell nextCell = field.getCells(getCurrentX() + dx, getCurrentY() + dy);
+        if (nextCell.getObject() != null) {
+            System.out.println("Невозможно переместить бочку в данном направлении");
+            return;
         }
+
+        // перемещаем козу
+        setPosition(getCurrentX() + dx, getCurrentY() + dy);
+
+        // перемещаем бочку
+        barrel.move(dx, dy);
+
+
+        // устанавливаем бочку на новую клетку
+        nextCell.addObject(barrel);
+        // очищаем старую клетку
+        currentCell.removeObject();
     }
+
+
     /*
     public Goat(Cell currentLocation, ImageIcon imageGoat){
         this.currentLocation = currentLocation;

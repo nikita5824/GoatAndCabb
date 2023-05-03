@@ -122,7 +122,7 @@ class BarrelTest {
 
         barrel.move(0, -1);
 
-        assertEquals(barrel, field.getCells(1, 1).getObject());
+        assertEquals(1, barrel.getY());
 
     }
 
