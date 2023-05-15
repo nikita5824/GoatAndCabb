@@ -141,7 +141,7 @@ public class Goat extends GameObject{
         cabbageEaten = true;
     }
 
-    public void moveBarrel(int dx, int dy, Barrel barrel) {
+    /*public void moveBarrel(int dx, int dy, Barrel barrel) {
         // проверяем, можно ли перемещать бочку в заданном направлении
         Cell currentCell = field.getCells(getCurrentX(), getCurrentY());
         Cell nextCell = field.getCells(getCurrentX() + dx, getCurrentY() + dy);
@@ -161,6 +161,96 @@ public class Goat extends GameObject{
         nextCell.addObject(barrel);
         // очищаем старую клетку
         currentCell.removeObject();
+    }*/
+
+
+    //Два метода move
+    public void moveBarrel(int dx, int dy, Barrel barrel, Direction direction, boolean pointCapture) {
+        // получаем текущую клетку козы
+       /* Cell currentCell = field.getCells(getCurrentX(), getCurrentY());
+
+        // получаем клетку, в которую переместится коза
+        Cell nextCell = field.getCells(getCurrentX() + dx, getCurrentY() + dy);
+
+        // определяем направление движения козы
+        int directionX = Integer.compare(dx, 0);
+        int directionY = Integer.compare(dy, 0);
+
+        // проверяем, есть ли рядом с козой бочка
+        if (currentCell.getObject() instanceof Barrel) {
+            Barrel barrel = (Barrel) currentCell.getObject();
+
+            // определяем направление движения бочки
+            int barrelDirectionX = Integer.compare(barrel.getX() - getCurrentX(), 0);
+            int barrelDirectionY = Integer.compare(barrel.getY() - getCurrentY(), 0);
+
+            // проверяем, находится ли бочка рядом с козой и двигается ли в нужном направлении
+            if (Math.abs(dx) == 1 && Math.abs(dy) == 0 && barrelDirectionX == directionX ||
+                    Math.abs(dx) == 0 && Math.abs(dy) == 1 && barrelDirectionY == directionY) {
+
+                // перемещаем бочку
+                int barrelNewX = barrel.getX() + dx;
+                int barrelNewY = barrel.getY() + dy;
+                Cell barrelNewCell = field.getCells(barrelNewX, barrelNewY);
+                barrel.setPosition(barrelNewX, barrelNewY);
+                currentCell.removeObject();
+                barrelNewCell.addObject(barrel);
+            }
+        }
+
+        // перемещаем козу
+        setPosition(getCurrentX() + dx, getCurrentY() + dy);*/
+//clockwise и anticlockwise
+
+        if(direction.isOpposite(Direction.east()) && !pointCapture){
+            direction.clockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.north()) && !pointCapture){
+            direction.clockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.south()) && !pointCapture){
+            direction.clockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.west()) && !pointCapture){
+            direction.clockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.east()) && pointCapture){
+            direction.anticlockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.north()) && pointCapture){
+            direction.anticlockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.south()) && pointCapture){
+            direction.anticlockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+        if(direction.isOpposite(Direction.west()) && pointCapture){
+            direction.anticlockwise();
+            barrel.move(dx, dy);
+            move(dx, dy);
+        }
+
+
     }
 
 

@@ -45,6 +45,9 @@ public class Cell {
         grave = imageGrave.getImage();
     }
 
+    public boolean isEmpty(){
+        return true;
+    }
     //
     ///////////////////////////////////////////////////////////////////////
 

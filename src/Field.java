@@ -63,6 +63,7 @@ public class Field extends JPanel {
         return height;
     }
 
+
     //Циклом
       //  cells.addAll(FieldGenerator.generateField(rows, cols));
 /*
